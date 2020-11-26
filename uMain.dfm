@@ -16,7 +16,7 @@ object fMain: TfMain
   PixelsPerInch = 96
   TextHeight = 13
   object lblInstructions: TLabel
-    Left = 312
+    Left = 376
     Top = 255
     Width = 391
     Height = 52
@@ -28,7 +28,7 @@ object fMain: TfMain
   end
   object btnStart: TButton
     Left = 8
-    Top = 272
+    Top = 264
     Width = 129
     Height = 25
     Caption = 'Open And Convert'
