@@ -16,7 +16,7 @@ uses
   PythonEngine, Vcl.StdCtrls, VarPyth, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxContainer, cxEdit, cxProgressBar;
 
 const
-  cPythonPlaceDir = 'C:\Python39\';
+  cPythonPlaceDir = 'D:\Python39\';
   cPythondll = 'python39.dll';
   cPythonPlace = cPythonPlaceDir + cPythondll;
   cOutFull = './out_full.csv';
@@ -215,7 +215,6 @@ const
  'MAT/HLA/DQB1/SER/FIELD2',
  'MAT/HLA/DQB1/DNA/FIELD1',
  'MAT/HLA/DQB1/DNA/FIELD2',
- 'MAT/HLA/DQB1/DNA/FIELD1',
  'MAT/HLA/DPA1/DNA/FIELD1',
  'MAT/HLA/DPA1/DNA/FIELD2',
  'MAT/HLA/DPB1/DNA/FIELD1',
@@ -417,7 +416,6 @@ const
  'MAT_HLA_DQB1_SER_FIELD2',
  'MAT_HLA_DQB1_DNA_FIELD1',
  'MAT_HLA_DQB1_DNA_FIELD2',
- 'MAT_HLA_DQB1_DNA_FIELD1',
  'MAT_HLA_DPA1_DNA_FIELD1',
  'MAT_HLA_DPA1_DNA_FIELD2',
  'MAT_HLA_DPB1_DNA_FIELD1',
