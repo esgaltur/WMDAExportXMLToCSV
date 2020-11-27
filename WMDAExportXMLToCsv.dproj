@@ -5,7 +5,7 @@
         <FrameworkType>VCL</FrameworkType>
         <MainSource>WMDAExportXMLToCsv.dpr</MainSource>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Debug</Config>
+        <Config Condition="'$(Config)'==''">Release</Config>
         <Platform Condition="'$(Platform)'==''">Win64</Platform>
         <TargetedPlatforms>3</TargetedPlatforms>
         <AppType>Application</AppType>
@@ -110,12 +110,19 @@
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_Build>1</VerInfo_Build>
         <VerInfo_Keys>CompanyName=Sosnovich corp.;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.1;InternalName=WMDAXmlToCsv;LegalCopyright=Sosnovich corp.;LegalTrademarks=WMDAXmlToCsv;OriginalFilename=Pandas4D;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.1;Comments=dmitriy@sosnovich.com</VerInfo_Keys>
+        <DCC_DcuOutput>.\$(Platform)\$(Config)\dcu</DCC_DcuOutput>
+        <DCC_ExeOutput>.\$(Platform)\$(Config)\out</DCC_ExeOutput>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
         <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
         <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
         <DCC_DebugInformation>0</DCC_DebugInformation>
+        <DCC_ExeOutput>.\$(Platform)\$(Config)\out</DCC_ExeOutput>
+        <VerInfo_Locale>1029</VerInfo_Locale>
+        <VerInfo_Keys>CompanyName=Sosnovich corp.;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.1;InternalName=WMDAXmlToCsv;LegalCopyright=Sosnovich corp.;LegalTrademarks=WMDAXmlToCsv;OriginalFilename=Pandas4D;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.1;Comments=dmitriy@sosnovich.com</VerInfo_Keys>
+        <DCC_UnitSearchPath>D:\python4delphi-master\Source;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_DcuOutput>.\$(Platform)\$(Config)\dcu</DCC_DcuOutput>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
@@ -124,6 +131,9 @@
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <VerInfo_Build>1</VerInfo_Build>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
@@ -133,6 +143,8 @@
             <Form>fMain</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="uTags.pas"/>
+        <DCCReference Include="uConsts.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -166,14 +178,14 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Win64\Debug\WMDAExportXMLToCsv.rsm" Configuration="Debug" Class="DebugSymbols">
-                    <Platform Name="Win64">
-                        <RemoteName>WMDAExportXMLToCsv.rsm</RemoteName>
+                <DeployFile LocalName="Win32\Debug\WMDAExportXMLToCsv.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>WMDAExportXMLToCsv.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Win32\Debug\WMDAExportXMLToCsv.exe" Configuration="Debug" Class="ProjectOutput">
-                    <Platform Name="Win32">
+                <DeployFile LocalName="Win64\Release\out\WMDAExportXMLToCsv.exe" Configuration="Release" Class="ProjectOutput">
+                    <Platform Name="Win64">
                         <RemoteName>WMDAExportXMLToCsv.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
