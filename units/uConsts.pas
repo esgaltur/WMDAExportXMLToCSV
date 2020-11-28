@@ -1,19 +1,24 @@
 unit uConsts;
 
 interface
+
 const
   cPythonInstalledDir = 'D:\Python39\';
   cPythonDll = 'python39.dll';
   cPythonDllFullPath = cPythonInstalledDir + cPythonDll;
-  cOutFull = './out/wmda_xml_full.csv';
-  cDropped = './out/wmda_xml_%s%s.csv';
+  cRowId = 'rowid';
+  cOutFolder = './out/';
+  cOutFull = cOutFolder+'wmda_xml_full.csv';
+  cDropped = cOutFolder+'wmda_xml_%s%s.csv';
   cPandasLib = 'pandas';
   cElementTreeLib = 'xml.etree.ElementTree';
-  cOsLib =   'os';
+  cOsLib = 'os';
   cDateTimeLib = 'datetime';
-  cXPathStart =  './';
-  cPythonNewStringExpresstion = 'str(''\n'')';
+  cXPathStart = './';
+  cPythonNewStringExpression = 'str(''\n'')';
   cCSVDelimiter = ';';
+
 implementation
 
 end.
+
