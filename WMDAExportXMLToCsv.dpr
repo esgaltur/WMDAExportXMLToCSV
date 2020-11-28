@@ -2,9 +2,9 @@ program WMDAExportXMLToCsv;
 
 uses
   Vcl.Forms,
-  uMain in 'uMain.pas' {fMain},
-  uTags in 'uTags.pas',
-  uConsts in 'uConsts.pas';
+  uMain in 'units/uMain.pas' {fMain},
+  uTags in 'units/uTags.pas',
+  uConsts in 'units/uConsts.pas';
 
 {$R *.res}
 
