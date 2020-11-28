@@ -3,10 +3,24 @@ unit uMain;
 interface
 
 {
-  @author  Dmitriy Sosnovich
+
+  Copyright 2020 Dmitriy Sosnovich, dmitriy@sosnovich.com
+
+  Permission is hereby granted, free of charge,
+  to any person obtaining a copy of this software and associated documentation files (the "Software"),
+  to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish,
+  distribute, sublicense,
+  and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+  INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
   @version 1.0
-  with using of the Python4Delphi Component(https://github.com/pyscripter/python4delphi), for minimal code writing :D
-  You should install Design time Components, it is better for using.
+  with using of the Python4Delphi Component(https://github.com/pyscripter/python4delphi)
+
 
 
 }
@@ -128,8 +142,7 @@ begin
       else
         donor_row.append(UTF8Encode(EmptyStr))
     end;
-    final_list.append(BuiltinModule.str(BuiltinModule.str(cCSVDelimiter).join(donor_row))
-    + VarPythonEval(cPythonNewStringExpression));
+    final_list.append(BuiltinModule.str(BuiltinModule.str(cCSVDelimiter).join(donor_row)) + VarPythonEval(cPythonNewStringExpression));
     pbProgress.Position := pbProgress.Position + 1;
     Application.ProcessMessages;
     if (len(final_list) > 10000) then
