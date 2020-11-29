@@ -1,10 +1,7 @@
-﻿### To Compile the project you need a Python4Delphi 
-### project(https://github.com/pyscripter/python4delphi) in your paths
+### To Compile the project you need a Python4Delphi 
+### https://github.com/pyscripter/python4delphi in your paths
 
-
-
-
-## To install WMDAExportXMLToCsv 
+### To install WMDAExportXMLToCsv 
 
 #### 1) Install Python 3.9 x64 according to the specifications below: 
 
