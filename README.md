@@ -11,6 +11,8 @@
 
 #### 2) Run in command line "pip install pandas".
 
+#### More info about the WMDA XML format: https://share.wmda.info/pages/viewpage.action?pageId=210665521
+
 
 
 
