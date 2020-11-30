@@ -50,6 +50,7 @@ type
     procedure DestroyPythonEngine;
     procedure iterateOverDonors(const aFile: Variant; const aDonors: variant);
     procedure iterateOverCbus(const aFile: Variant; const aCbus: variant);
+    procedure AttribsProcess(const aTag,aDonors_row:variant);
   public
     { Public declarations }
   end;
@@ -60,6 +61,22 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfMain.AttribsProcess(const aTag, aDonors_row: variant);
+begin
+  if (aTag.attrib <> None) then
+  begin
+    if (VarIsTrue(aTag.attrib.get(cBANK_ATTRIB_WMDA) <> None)) then
+      aDonors_row.append(UTF8Encode(Trim(VarPythonAsString(aTag.attrib[cBANK_ATTRIB_WMDA]))))
+    else
+      aDonors_row.append(UTF8Encode(cEmptyAttr));
+
+    if (VarIsTrue(aTag.attrib.get(cBANK_ATTRIB_EMDIS) <> None)) then
+      aDonors_row.append(UTF8Encode(Trim(VarPythonAsString(aTag.attrib[cBANK_ATTRIB_EMDIS]))))
+    else
+      aDonors_row.append(UTF8Encode(cEmptyAttr));
+  end;
+end;
 
 procedure TfMain.btnStartClick(Sender: TObject);
 begin
@@ -104,7 +121,7 @@ begin
   columns_name := BuiltinModule.list(VarPythonCreate(cHeadersList));
   //BANK_MANUF_ID and BANK_DISTRIB_ID have in version 2.2. attributes, so there is two more values one for the EMDIS other for WMDA,
   //but values are from the one tag. So, there is an exception for these two tags
-  if (len(columns_xpath) <> len(columns_name) - 2) then
+  if ((len(columns_xpath)- 2) <> len(columns_name) )  then
   begin
     raise Exception.Create('Count of the tags xpath and header are not the same!  columns_xpath:' + IntToStr(len(columns_xpath)) + ' ,columns_name' + IntToStr(len(columns_name)) + '  ');
     Application.Terminate;
@@ -137,22 +154,17 @@ begin
       begin
         if (tag.text <> None) then
         begin
-          donor_row.append(UTF8Encode(Trim(VarPythonAsString(tag.text.strip()))))
-        end
-        else if (tag.tag =cBANK_MANUF_ID ) or (tag.tag = cBANK_DISTRIB_ID) then
-        begin
-          if (tag.attrib <> None) then
-          begin
-            if (VarIsTrue(tag.attrib.get(cBANK_ATTRIB_WMDA) <> None)) then
-              donor_row.append(UTF8Encode(Trim(VarPythonAsString(tag.attrib[cBANK_ATTRIB_WMDA]))))
-            else
-              donor_row.append(UTF8Encode(cEmptyAttr));
+          donor_row.append(UTF8Encode(Trim(VarPythonAsString(tag.text.strip())))) ;
 
-            if (VarIsTrue(tag.attrib.get(cBANK_ATTRIB_EMDIS) <> None)) then
-              donor_row.append(UTF8Encode(Trim(VarPythonAsString(tag.attrib[cBANK_ATTRIB_EMDIS]))))
-            else
-              donor_row.append(UTF8Encode(cEmptyAttr));
+          if (tag.tag = cBANK_MANUF_ID ) or (tag.tag = cBANK_DISTRIB_ID) then
+          begin
+             AttribsProcess(VarPythonCreate(tag),VarPythonCreate(donor_row))
           end;
+
+        end
+        else if (tag.tag = cBANK_MANUF_ID ) or (tag.tag = cBANK_DISTRIB_ID) then
+        begin
+           AttribsProcess(VarPythonCreate(tag),VarPythonCreate(donor_row))
         end
         else
           donor_row.append(UTF8Encode(cEmptyTag))
@@ -267,6 +279,7 @@ var
   root: Variant;
   inventory: variant;
   os: variant;
+  version: variant;
   dlg: TOpenDialog;
   file_open: Variant;
 begin
@@ -278,6 +291,12 @@ begin
     begin
       tree := et.parse(Utf8Encode(dlg.FileName));
       root := tree.getroot();
+      version := root.find(cINVENTORY).attrib[cVersionAttrib];
+      if(version =cv2_1) then
+      columns_name.extend(BuiltinModule.list(VarPythonCreate((cBanksManDistr21))))
+      else if(version=cv2_2) then
+      columns_name.extend(BuiltinModule.list(VarPythonCreate((cBanksManDistr22)))) ;
+
       try
         for inventory in VarPyIterate(root.findall(cInventoryTag)) do
         begin
@@ -293,7 +312,8 @@ begin
               begin
                 file_open := BuiltinModule.open(cOutFull, 'w+');
                 try
-                  file_open.write(BuiltinModule.str(BuiltinModule.str(cCSVDelimiter).join(columns_name)) + VarPythonEval(cPythonNewStringExpression));
+                  file_open.write(BuiltinModule.str(BuiltinModule.str(cCSVDelimiter).join(columns_name))
+                   + VarPythonEval(cPythonNewStringExpression));
                   pbProgress.Position := 0;
                   iterateOverDonors(VarPythonCreate(file_open), VarPythonCreate(inventory.findall(cDonorTag)));
                 finally
