@@ -43,6 +43,7 @@ type
     PythonEngine: TPythonEngine;
     columns_xpath: Variant;
     columns_name: Variant;
+    procedure PrepareColumnsNamesByXmlVersion(const aVersion:variant);
     procedure Start;
     procedure ProcessDonorCsv;
     procedure ProcessCbuCsv;
@@ -239,6 +240,17 @@ begin
   end;
 end;
 
+procedure TfMain.PrepareColumnsNamesByXmlVersion(const aVersion:variant);
+begin
+  if (aVersion = cv2_1) then
+    columns_name.extend(BuiltinModule.list(VarPythonCreate((cBanksManDistr21))))
+  else if (aVersion = cv2_2) then
+    columns_name.extend(BuiltinModule.list(VarPythonCreate((cBanksManDistr22))))
+    else
+     columns_name.extend(BuiltinModule.list(VarPythonCreate((cBanksManDistr21))));
+
+end;
+
 procedure TfMain.ProcessCbuCsv;
 var
   pd: variant;
@@ -292,11 +304,7 @@ begin
       tree := et.parse(Utf8Encode(dlg.FileName));
       root := tree.getroot();
       version := root.find(cINVENTORY).attrib[cVersionAttrib];
-      if(version =cv2_1) then
-      columns_name.extend(BuiltinModule.list(VarPythonCreate((cBanksManDistr21))))
-      else if(version=cv2_2) then
-      columns_name.extend(BuiltinModule.list(VarPythonCreate((cBanksManDistr22)))) ;
-
+      PrepareColumnsNamesByXmlVersion(VarPythonCreate(version));
       try
         for inventory in VarPyIterate(root.findall(cInventoryTag)) do
         begin

@@ -423,6 +423,7 @@ cCBUTag = 'CBU';
   cBanksManDistr21: array of string = ['BANK_MANUF_ID', 'BANK_DISTRIB'];
   cBanksManDistr22: array of string = ['BANK_MANUF_ID_WMDAID', 'BANK_MANUF_ID_EMDISID', 'BANK_DISTRIB_ID_WMDAID', 'BANK_DISTRIB_EMDISID'];
   cINVENTORY = 'INVENTORY';
+  cVersionAttrib = 'SCHEMA_VERSION';
   cv2_1 = '2.1';
   cv2_2 = '2.2';
 implementation
