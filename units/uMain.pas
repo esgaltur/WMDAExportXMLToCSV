@@ -144,7 +144,7 @@ begin
           if (tag.attrib <> None) then
           begin
             if (VarIsTrue(tag.attrib.get(cBANK_ATTRIB_WMDA) <> None)) then
-              donor_row.append(UTF8Encode(Trim(VarPythonAsString(tag.attrib[cBANK_ATTRIB_EMDIS]))))
+              donor_row.append(UTF8Encode(Trim(VarPythonAsString(tag.attrib[cBANK_ATTRIB_WMDA]))))
             else
               donor_row.append(UTF8Encode(cEmptyAttr));
 
