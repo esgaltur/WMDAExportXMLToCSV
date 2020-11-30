@@ -106,7 +106,7 @@ begin
   //but values are from the one tag. So, there is an exception for these two tags
   if (len(columns_xpath) <> len(columns_name) - 2) then
   begin
-    raise Exception.Create('Count of the tags xpath and header are not the same!  ' + IntToStr(len(columns_xpath)) + ' a columns_name' + IntToStr(len(columns_name)) + '  ');
+    raise Exception.Create('Count of the tags xpath and header are not the same!  columns_xpath:' + IntToStr(len(columns_xpath)) + ' ,columns_name' + IntToStr(len(columns_name)) + '  ');
     Application.Terminate;
   end;
 end;
