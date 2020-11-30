@@ -31,6 +31,12 @@ const
   cPythonNewStringExpression = 'str(''\n'')';
   cCSVDelimiter = ';';
 
+  cBANK_MANUF_ID = 'BANK_MANUF_ID';
+  cBANK_DISTRIB_ID = 'BANK_DISTRIB_ID' ;
+
+  cBANK_ATTRIB_WMDA = 'WMDA';
+  cBANK_ATTRIB_EMDIS = 'EMDIS';
+
 implementation
 
 end.

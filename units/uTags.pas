@@ -16,6 +16,7 @@ unit uTags;
 interface
 const
 cEmptyTag = 'Empty_Tag'  ;
+cEmptyAttr = 'Empty_Attr'  ;
 cInventoryTag = 'INVENTORY';
 cDonorTag = 'DONOR';
 cCBUTag = 'CBU';
@@ -45,8 +46,6 @@ cCBUTag = 'CBU';
  'COLL_TYPE',
  'LOCAL_ID',
  'BAG_ID',
- 'BANK_MANUF_ID',
- 'BANK_DISTRIB_ID',
  'COLL_DATE',
  'PROC_DATE',
  'PROC_METH',
@@ -217,7 +216,9 @@ cCBUTag = 'CBU';
  'IDM/CMV_NAT_DATE',
  'MAT/IDM/ANTI_CMV',
  'MAT/IDM/ANTI_CMV_DATE',
- 'MAT/IDM/CMV_NAT_DATE'];
+ 'MAT/IDM/CMV_NAT_DATE',
+ 'BANK_MANUF_ID',
+ 'BANK_DISTRIB_ID'];
 
   cHeadersList: array of string = ['GRID',
  'ATTR',
@@ -245,8 +246,6 @@ cCBUTag = 'CBU';
  'COLL_TYPE',
  'LOCAL_ID',
  'BAG_ID',
- 'BANK_MANUF_ID',
- 'BANK_DISTRIB_ID',
  'COLL_DATE',
  'PROC_DATE',
  'PROC_METH',
@@ -417,7 +416,12 @@ cCBUTag = 'CBU';
  'IDM_CMV_NAT_DATE',
  'MAT_IDM_ANTI_CMV',
  'MAT_IDM_ANTI_CMV_DATE',
- 'MAT_IDM_CMV_NAT_DATE'];
+ 'MAT_IDM_CMV_NAT_DATE',
+ 'BANK_MANUF_ID_WMDAID',
+ 'BANK_MANUF_ID_EMDISID',
+ 'BANK_DISTRIB_ID_WMDAID',
+ 'BANK_DISTRIB_EMDISID'
+ ];
 
 implementation
 

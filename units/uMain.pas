@@ -48,8 +48,8 @@ type
     procedure ProcessCbuCsv;
     procedure CreatePythonEngine;
     procedure DestroyPythonEngine;
-    procedure iterate_over_donors(const aFile: Variant; const aDonors: variant);
-    procedure iterate_over_cbu(const aFile: Variant; const aCbus: variant);
+    procedure iterateOverDonors(const aFile: Variant; const aDonors: variant);
+    procedure iterateOverCbus(const aFile: Variant; const aCbus: variant);
   public
     { Public declarations }
   end;
@@ -102,7 +102,7 @@ begin
   CreatePythonEngine;
   columns_xpath := BuiltinModule.list(VarPythonCreate(cTagsXPathList));
   columns_name := BuiltinModule.list(VarPythonCreate(cHeadersList));
-  if (len(columns_xpath) <> len(columns_name)) then
+  if (len(columns_xpath) <> len(columns_name) - 2) then
   begin
     raise Exception.Create('Count of the tags xpath and header are not the same!  ' + IntToStr(len(columns_xpath)) + ' a columns_name' + IntToStr(len(columns_name)) + '  ');
     Application.Terminate;
@@ -114,7 +114,7 @@ begin
   DestroyPythonEngine;
 end;
 
-procedure TfMain.iterate_over_cbu(const aFile: Variant; const aCBUs: Variant);
+procedure TfMain.iterateOverCbus(const aFile: Variant; const aCBUs: Variant);
 var
   cbu: variant;
   tag: variant;
@@ -133,9 +133,25 @@ begin
       tag := cbu.find(UTF8Encode(cXPathStart + tag_name));
       if (tag <> None) then
       begin
-
         if (tag.text <> None) then
+        begin
           donor_row.append(UTF8Encode(Trim(VarPythonAsString(tag.text.strip()))))
+        end
+        else if (tag.tag =cBANK_MANUF_ID ) or (tag.tag = cBANK_DISTRIB_ID) then
+        begin
+          if (tag.attrib <> None) then
+          begin
+            if (VarIsTrue(tag.attrib.get(cBANK_ATTRIB_WMDA) <> None)) then
+              donor_row.append(UTF8Encode(Trim(VarPythonAsString(tag.attrib[cBANK_ATTRIB_EMDIS]))))
+            else
+              donor_row.append(UTF8Encode(cEmptyAttr));
+
+            if (VarIsTrue(tag.attrib.get(cBANK_ATTRIB_EMDIS) <> None)) then
+              donor_row.append(UTF8Encode(Trim(VarPythonAsString(tag.attrib[cBANK_ATTRIB_EMDIS]))))
+            else
+              donor_row.append(UTF8Encode(cEmptyAttr));
+          end;
+        end
         else
           donor_row.append(UTF8Encode(cEmptyTag))
       end
@@ -162,7 +178,7 @@ begin
   end;
 end;
 
-procedure TfMain.iterate_over_donors(const aFile: Variant; const aDonors: variant);
+procedure TfMain.iterateOverDonors(const aFile: Variant; const aDonors: variant);
 var
   donor: variant;
   tag: variant;
@@ -277,7 +293,7 @@ begin
                 try
                   file_open.write(BuiltinModule.str(BuiltinModule.str(cCSVDelimiter).join(columns_name)) + VarPythonEval(cPythonNewStringExpression));
                   pbProgress.Position := 0;
-                  iterate_over_donors(VarPythonCreate(file_open), VarPythonCreate(inventory.findall(cDonorTag)));
+                  iterateOverDonors(VarPythonCreate(file_open), VarPythonCreate(inventory.findall(cDonorTag)));
                 finally
                   file_open.close();
                   ProcessDonorCsv;
@@ -290,7 +306,7 @@ begin
                 try
                   file_open.write(BuiltinModule.str(BuiltinModule.str(cCSVDelimiter).join(columns_name)) + VarPythonEval(cPythonNewStringExpression));
                   pbProgress.Position := 0;
-                  iterate_over_cbu(VarPythonCreate(file_open), VarPythonCreate(inventory.findall(cCBUTag)));
+                  iterateOverCbus(VarPythonCreate(file_open), VarPythonCreate(inventory.findall(cCBUTag)));
                 finally
                   file_open.close();
                   ProcessCbuCsv;
