@@ -102,6 +102,8 @@ begin
   CreatePythonEngine;
   columns_xpath := BuiltinModule.list(VarPythonCreate(cTagsXPathList));
   columns_name := BuiltinModule.list(VarPythonCreate(cHeadersList));
+  //BANK_MANUF_ID and BANK_DISTRIB_ID have in version 2.2. attributes, so there is two more values one for the EMDIS other for WMDA,
+  //but values are from the one tag. So, there is an exception for these two tags
   if (len(columns_xpath) <> len(columns_name) - 2) then
   begin
     raise Exception.Create('Count of the tags xpath and header are not the same!  ' + IntToStr(len(columns_xpath)) + ' a columns_name' + IntToStr(len(columns_name)) + '  ');
